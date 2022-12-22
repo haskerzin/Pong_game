@@ -45,6 +45,7 @@ class Pong:
             self.p2_pos[1] -= self.speed_2
             self.speed_2 = 0
 
+    # Method that moves the ball
     def move_ball(self):
         self.ball_pos[0] += self.ball_velocity[0]
         self.ball_pos[1] += self.ball_velocity[1]
