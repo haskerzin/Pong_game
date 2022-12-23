@@ -44,6 +44,9 @@ class Pong:
     def hit_sound(self):
         pygame.mixer.Sound.play(self.pong_sound)
 
+    def scoring_sound(self):
+        pygame.mixer.Sound.play(self.score_sound)
+
     
     def restart_game(self):
         pass
@@ -75,16 +78,18 @@ class Pong:
 
         # Ball crossed the right side of the screen
         if self.ball_pos[0] >= self.width - self.ball_size:
+            self.scoring_sound()
             self.score_1 += 1
             self.ball_pos = [self.width/2, self.height/2]
-            pygame.time.wait(300)
+            pygame.time.wait(3000)
             self.ball_velocity = [(-1)**random.randint(0,1)*self.ball_speed, (-1)**random.randint(0,1)*self.ball_speed]
 
         # Ball crossed the left side of the screen
         if self.ball_pos[0] <= self.ball_size:
+            self.scoring_sound()
             self.score_2 += 1
             self.ball_pos = [self.width/2, self.height/2]
-            pygame.time.wait(300)
+            pygame.time.wait(3000)
             self.ball_velocity = [(-1)**random.randint(0,1)*self.ball_speed, (-1)**random.randint(0,1)*self.ball_speed]
 
         
@@ -174,6 +179,7 @@ class Pong:
 
         pygame.display.set_caption('Pong Game - By Gabs')
         self.pong_sound = pygame.mixer.Sound("PongSoundEdited.wav")
+        self.score_sound = pygame.mixer.Sound("FailSound.wav")
 
         
         font = pygame.font.Font('freesansbold.ttf', 20)
