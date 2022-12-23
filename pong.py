@@ -6,7 +6,7 @@ class Pong:
 
     def __init__(self):
 
-        # Screen specs
+        # Screen specs 
         self.width = 1000
         self.height = 600
         self.screen = pygame.display.set_mode([self.width, self.height])
