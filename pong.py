@@ -1,4 +1,6 @@
 import pygame
+from pygame.locals import *
+
 from sys import exit
 import random
 
@@ -38,6 +40,9 @@ class Pong:
         self.pressed = False
 
 
+
+    def hit_sound(self):
+        pygame.mixer.Sound.play(self.pong_sound)
 
     
     def restart_game(self):
@@ -86,14 +91,17 @@ class Pong:
         # Ball bounces of the upper side and the bottom of the screen
         if self.ball_pos[1] <= self.ball_size or self.ball_pos[1] >= self.height - self.ball_size:
             self.ball_velocity[1] *= -1
+            self.hit_sound()
 
         # Ball bounces of the player 1 platform
         if (self.ball_pos[0] == self.ball_size + self.player_size_x) and (self.ball_pos[1] >= self.p1_pos[1] - self.ball_size and self.ball_pos[1] <= self.p1_pos[1]+self.player_size_y+self.ball_size):
             self.ball_velocity[0] *= -1
-
+            self.hit_sound()
+        
         # Ball bounces of the player 2 platform
         if (self.ball_pos[0] == self.width - self.ball_size - self.player_size_x) and (self.ball_pos[1] >= self.p2_pos[1] - self.ball_size and self.ball_pos[1] <= self.p2_pos[1] + self.player_size_y + self.ball_size):
             self.ball_velocity[0] *= -1
+            self.hit_sound()
         
     
     def draw_ball(self):
@@ -165,6 +173,8 @@ class Pong:
         pygame.init()
 
         pygame.display.set_caption('Pong Game - By Gabs')
+        self.pong_sound = pygame.mixer.Sound("PongSoundEdited.wav")
+
         
         font = pygame.font.Font('freesansbold.ttf', 20)
         # score_1 = font.render(f'Score: {self.score_1}', True, self.white, self.green)
